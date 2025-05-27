@@ -41,7 +41,8 @@ Puedes visualizar el diseño en Figma:
 - Franklin German Quihuang Garzón – fquihuang@poligran.edu.co  
 - William Alejandro Puerto Güechá – walpuertog@poligran.edu.co  
 - Ricaurte Triviño Robayo – ritrivino@poligran.edu.co  
-- Walter Esteban Restrepo Valencia – wrestrepo@poligran.edu.co  
+- Walter Esteban Restrepo Valencia – wrestrepo@poligran.edu.co
+- Yeison Fabian Rodriguez Cruz – yfarodriguez@poligran.edu.co   
 
 ---
 
