@@ -9,7 +9,7 @@
 
 ```bash
 npm install
-ionic serve
+ionic serve o npx ng serve --port 8100  
 ```
 
 ## Estructura
