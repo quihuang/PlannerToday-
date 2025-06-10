@@ -1,0 +1,28 @@
+# Node modules
+node_modules/
+
+# Compiled output
+www/
+dist/
+build/
+out-tsc/
+.tmp/
+
+# Angular specific
+.angular/
+
+# Environment files
+src/environments/*.ts
+!.gitkeep
+
+# IDEs and editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS files
+.DS_Store
+Thumbs.db

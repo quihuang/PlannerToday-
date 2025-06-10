@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h2>Tareas para hoy</h2>
+  <ion-list *ngIf="tareasHoy.length > 0; else noTareas">
+    <ion-item *ngFor="let tarea of tareasHoy">
+      <ion-label>
+        <h3>{{ tarea.titulo }}</h3>
+        <p>{{ tarea.categoria }} - Prioridad: {{ tarea.prioridad }}</p>
+        <p>Hora: {{ tarea.hora }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ng-template #noTareas>
+    <p class="texto-centro">No tienes tareas programadas para hoy.</p>
+  </ng-template>
+</ion-content>
