@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-title>Planificador Diario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h3>Bloque: Mañana</h3>
+  <ion-list>
+    <ion-item *ngFor="let tarea of bloques.manana">
+      <ion-label>
+        <strong>{{ tarea.titulo }}</strong><br />
+        {{ tarea.hora }} - {{ tarea.categoria }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <h3>Bloque: Tarde</h3>
+  <ion-list>
+    <ion-item *ngFor="let tarea of bloques.tarde">
+      <ion-label>
+        <strong>{{ tarea.titulo }}</strong><br />
+        {{ tarea.hora }} - {{ tarea.categoria }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <h3>Bloque: Noche</h3>
+  <ion-list>
+    <ion-item *ngFor="let tarea of bloques.noche">
+      <ion-label>
+        <strong>{{ tarea.titulo }}</strong><br />
+        {{ tarea.hora }} - {{ tarea.categoria }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

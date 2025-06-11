@@ -1,0 +1,25 @@
+.priority-alta {
+  --background: rgba(var(--ion-color-danger-rgb), 0.1);
+  border-left: 4px solid var(--ion-color-danger);
+}
+
+.priority-media {
+  --background: rgba(var(--ion-color-warning-rgb), 0.1);
+  border-left: 4px solid var(--ion-color-warning);
+}
+
+.priority-baja {
+  --background: rgba(var(--ion-color-success-rgb), 0.1);
+  border-left: 4px solid var(--ion-color-success);
+}
+
+.task-completed {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+ion-badge {
+  &[color="danger"] { background: var(--ion-color-danger); }
+  &[color="warning"] { background: var(--ion-color-warning); }
+  &[color="success"] { background: var(--ion-color-success); }
+}
