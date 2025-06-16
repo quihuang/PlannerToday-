@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 // Importar todas las páginas
 import { LoginPage } from './pages/login/login.page';
@@ -14,16 +15,25 @@ import { NuevaTareaPage } from './pages/nueva-tarea/nueva-tarea.page';
 import { PlanificadorPage } from './pages/planificador/planificador.page';
 import { EstadisticasPage } from './pages/estadisticas/estadisticas.page';
 import { ConfiguracionPage } from './pages/configuracion/configuracion.page';
+import { TabsPage } from './pages/tabs/tabs.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginPage },
   { path: 'register', component: RegisterPage },
-  { path: 'dashboard', component: DashboardPage },
-  { path: 'nueva-tarea', component: NuevaTareaPage },
-  { path: 'planificador', component: PlanificadorPage },
-  { path: 'estadisticas', component: EstadisticasPage },
-  { path: 'configuracion', component: ConfiguracionPage }
+
+  {
+    path: 'tabs',
+    component: TabsPage,
+    children: [
+      { path: 'dashboard', component: DashboardPage },
+      { path: 'nueva-tarea', component: NuevaTareaPage },
+      { path: 'planificador', component: PlanificadorPage },
+      { path: 'estadisticas', component: EstadisticasPage },
+      { path: 'configuracion', component: ConfiguracionPage },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  }
 ];
 
 @NgModule({
@@ -35,7 +45,8 @@ const routes: Routes = [
     NuevaTareaPage,
     PlanificadorPage,
     EstadisticasPage,
-    ConfiguracionPage
+    ConfiguracionPage,
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -45,6 +56,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

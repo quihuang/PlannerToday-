@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TareasService } from '../../services/tareas.service';
+import { TareaService } from '../../services/tarea.service';
 import { Storage } from '@ionic/storage-angular';
 
 @Component({
@@ -8,7 +8,7 @@ import { Storage } from '@ionic/storage-angular';
   styleUrls: ['./configuracion.page.scss'],
 })
 export class ConfiguracionPage {
-  constructor(private tareasService: TareasService, private storage: Storage) {}
+  constructor(private tareasService: TareaService, private storage: Storage) {}
 
   async limpiarTareas() {
     await this.storage.create();

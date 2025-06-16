@@ -1,33 +1,55 @@
-import { Component } from '@angular/core';
-import { TareasService } from '../../services/tareas.service';
+import { Component, OnInit } from '@angular/core';
+import { TareaService } from '../../services/tarea.service';
 import { Tarea } from '../../models/tarea.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nueva-tarea',
   templateUrl: './nueva-tarea.page.html',
   styleUrls: ['./nueva-tarea.page.scss'],
 })
-export class NuevaTareaPage {
-  tarea: Tarea = {
-    id: '',
-    titulo: '',
-    categoria: 'personal',
-    prioridad: 'media',
-    fecha: '',
-    hora: '',
-    completado: false
-  };
+export class NuevaTareaPage implements OnInit {
+  tareas: Tarea[] = [];
 
-  constructor(private tareasService: TareasService, private router: Router) {}
+  titulo = '';
+  descripcion = '';
+  fecha = '';
+  hora = '';
+  categoria = '';
+  prioridad: 'alta' | 'media' | 'baja' = 'media';
 
-  async guardarTarea() {
-    if (this.tarea.titulo && this.tarea.fecha && this.tarea.hora) {
-      await this.tareasService.addTarea(this.tarea);
-      alert('Tarea guardada');
-      this.router.navigate(['/dashboard']);
-    } else {
-      alert('Por favor, completa todos los campos obligatorios');
-    }
+  constructor(private tareaService: TareaService) {}
+
+  async ngOnInit() {
+    this.tareas = await this.tareaService.obtenerTareas();
+  }
+
+  async agregarTarea() {
+    if (!this.titulo || !this.fecha) return alert('Campos requeridos');
+
+    await this.tareaService.guardarTarea({
+      titulo: this.titulo,
+      descripcion: this.descripcion,
+      fecha: this.fecha,
+      hora: this.hora,
+      categoria: this.categoria,
+      prioridad: this.prioridad,
+      completada: false
+    });
+
+    this.limpiarFormulario();
+    this.tareas = await this.tareaService.obtenerTareas();
+  }
+
+  async eliminar(id: string) {
+    await this.tareaService.eliminarTarea(id);
+    this.tareas = await this.tareaService.obtenerTareas();
+  }
+
+  limpiarFormulario() {
+    this.titulo = '';
+    this.descripcion = '';
+    this.fecha = '';
+    this.categoria = '';
+    this.prioridad = 'media';
   }
 }

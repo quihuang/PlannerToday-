@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TareasService } from '../../services/tareas.service';
+import { TareaService } from '../../services/tarea.service';
 import { Tarea } from '../../models/tarea.model';
 
 @Component({
@@ -12,12 +12,12 @@ export class EstadisticasPage implements OnInit {
   completadas = 0;
   porcentaje = 0;
 
-  constructor(private tareasService: TareasService) {}
+  constructor(private tareasService: TareaService) {}
 
-  async ngOnInit() {
-    const tareas = await this.tareasService.getTareas();
+   async ngOnInit() {
+    const tareas = await this.tareasService.obtenerTareas();
     this.total = tareas.length;
-    this.completadas = tareas.filter(t => t.completado).length;
+    this.completadas = tareas.filter(t => t.completada).length;
     this.porcentaje = this.total > 0 ? Math.round((this.completadas / this.total) * 100) : 0;
   }
 }

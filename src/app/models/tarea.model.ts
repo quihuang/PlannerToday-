@@ -1,9 +1,10 @@
 export interface Tarea {
   id: string;
   titulo: string;
-  categoria: string;
-  prioridad: string;
-  fecha: string;
+  descripcion: string;
+  fecha: string;    
   hora: string;
-  completado: boolean;
+  categoria: string;
+  prioridad: 'alta' | 'media' | 'baja';
+  completada: boolean;
 }

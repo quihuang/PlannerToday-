@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TareasService } from '../../services/tareas.service';
+import { TareaService } from '../../services/tarea.service';
 import { Tarea } from '../../models/tarea.model';
 
 @Component({
@@ -15,14 +15,14 @@ export class PlanificadorPage implements OnInit {
     noche: [] as Tarea[]
   };
 
-  constructor(private tareasService: TareasService) {}
+  constructor(private tareasService: TareaService) {}
 
   async ngOnInit() {
     await this.cargarTareas();
   }
 
   async cargarTareas() {
-    const todas = await this.tareasService.getTareas();
+    const todas = await this.tareasService.obtenerTareas();
     this.bloques.manana = todas.filter(t => t.hora < '12:00');
     this.bloques.tarde = todas.filter(t => t.hora >= '12:00' && t.hora < '18:00');
     this.bloques.noche = todas.filter(t => t.hora >= '18:00');

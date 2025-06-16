@@ -47,7 +47,7 @@ export class LoginPage {
     
     const acceso = await this.authService.login(this.email, this.clave);
     if (acceso) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/tabs/dashboard']);
     } else {
       alert('Credenciales inválidas');
     }
