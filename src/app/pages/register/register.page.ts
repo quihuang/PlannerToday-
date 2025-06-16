@@ -9,21 +9,37 @@ import { Usuario } from '../../models/usuario.model';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage {
+
+  mostrarClave: boolean = false;
+  mostrarConfirmacion: boolean = false;
+  confirmarClave: string = '';
+
   usuario: Usuario = {
-    nombre: '',
+    nombres: '',
+    apellidos: '',
+    edad: 0,
     email: '',
     clave: ''
   };
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  async registrar() {
-    if (this.usuario.email && this.usuario.clave) {
-      await this.authService.register(this.usuario);
-      alert('Usuario registrado con éxito');
-      this.router.navigate(['/login']);
-    } else {
-      alert('Todos los campos son obligatorios');
-    }
+ async registrar() {
+  const { nombres, apellidos, edad, email, clave } = this.usuario;
+
+  if (!nombres || !apellidos || !edad || !email || !clave || !this.confirmarClave) {
+    alert('Todos los campos son obligatorios');
+    return;
   }
+
+  if (clave !== this.confirmarClave) {
+    alert('Las contraseñas no coinciden');
+    return;
+  }
+
+  await this.authService.register(this.usuario);
+  alert('Usuario registrado con éxito');
+  this.router.navigate(['/login']);
+}
+
 }

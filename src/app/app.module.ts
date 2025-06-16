@@ -42,7 +42,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [],
   bootstrap: [AppComponent]
