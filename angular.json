@@ -31,6 +31,7 @@
       }
     }
   },
+  "defaultProject": "PlannerToday",
   "cli": {
     "analytics": false
   }

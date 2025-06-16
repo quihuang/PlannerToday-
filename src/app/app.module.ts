@@ -42,14 +42,9 @@ const routes: Routes = [
     FormsModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
-    RouterModule.forRoot(routes)
-  ],
-
-  exports: [
-    RouterModule
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-export class AppRoutingModule { } // Este módulo es el punto de entrada de la aplicación Angular/Ionic.

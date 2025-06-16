@@ -1,0 +1,14 @@
+ion-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+form {
+  max-width: 400px;
+  margin: auto;
+}
+
+ion-item ion-icon {
+  font-size: 20px;
+}

@@ -9,9 +9,6 @@ const STORAGE_KEY = 'tareas';
   providedIn: 'root'
 })
 export class TareasService {
-  getTasks() {
-    throw new Error('Method not implemented.');
-  }
   private storageReady = this.storage.create();
 
   constructor(private storage: Storage) {}
