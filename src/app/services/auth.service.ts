@@ -35,4 +35,12 @@ export class AuthService {
     await this.storageReady;
     return await this.storage.get(STORAGE_KEY);
   }
+
+  async recuperarClave(email: string): Promise<boolean> {
+  // Simulación de recuperación
+  console.log('Recuperando clave para:', email);
+  await new Promise(resolve => setTimeout(resolve, 1000)); // espera simulada
+  return true;
+}
+
 }

@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage-angular';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-// Importar todas las páginas
+import { AppComponent } from './app.component';
+
+// Páginas
 import { LoginPage } from './pages/login/login.page';
 import { RegisterPage } from './pages/register/register.page';
 import { DashboardPage } from './pages/dashboard/dashboard.page';
@@ -16,11 +16,13 @@ import { PlanificadorPage } from './pages/planificador/planificador.page';
 import { EstadisticasPage } from './pages/estadisticas/estadisticas.page';
 import { ConfiguracionPage } from './pages/configuracion/configuracion.page';
 import { TabsPage } from './pages/tabs/tabs.page';
+import { RecuperarClavePage } from './pages/recuperar-clave/recuperar-clave.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginPage },
   { path: 'register', component: RegisterPage },
+  { path: 'recuperar-clave', component: RecuperarClavePage },
 
   {
     path: 'tabs',
@@ -46,7 +48,8 @@ const routes: Routes = [
     PlanificadorPage,
     EstadisticasPage,
     ConfiguracionPage,
-    TabsPage
+    TabsPage,
+    RecuperarClavePage
   ],
   imports: [
     BrowserModule,
@@ -59,4 +62,5 @@ const routes: Routes = [
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule { }
+export class AppModule {}
+

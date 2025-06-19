@@ -97,6 +97,8 @@
     <ion-button expand="block" type="submit" class="ion-margin-top">
       {{ esRegistro ? 'Registrarse' : 'Iniciar sesión' }}
     </ion-button>
+
+        
   </form>
 
   <!-- Toggle para cambiar entre login y registro -->
@@ -105,4 +107,11 @@
       {{ esRegistro ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate aquí' }}
     </p>
   </ion-text>
+
+  <!-- recupera clave-->
+  <ion-button fill="clear" size="small" (click)="olvidasteClave()" expand="block" color="medium">
+    ¿Olvidaste tu contraseña?
+  </ion-button>
+
+
 </ion-content>

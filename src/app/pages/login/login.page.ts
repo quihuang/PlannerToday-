@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from '../../services/toast.service';
+import { ModalController } from '@ionic/angular';
+import { RecuperarClavePage } from '../recuperar-clave/recuperar-clave.page';
+
 
 @Component({
   selector: 'app-login',
@@ -17,17 +21,21 @@ export class LoginPage {
   mostrarClave: boolean = false;
   confirmarClave: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, 
+              private router: Router,
+              private toastService: ToastService,
+              private modalCtrl: ModalController,
+  ) {}
 
   async login() {
     if (this.esRegistro) {
       if (!this.nombres || !this.apellidos || !this.edad || !this.email || !this.clave || !this.confirmarClave) {
-        alert('Todos los campos son obligatorios');
+        this.toastService.showToast('Todos los campos son obligatorios','danger',2000,'middle');
         return;
       }
 
       if (this.clave !== this.confirmarClave) {
-        alert('Las contraseñas no coinciden');
+        this.toastService.showToast('Las contraseñas no coinciden','warning',2000,'middle');
         return;
       }
 
@@ -39,7 +47,7 @@ export class LoginPage {
         clave: this.clave
       });
 
-      alert('Registro exitoso. Ahora puedes iniciar sesión.');
+      this.toastService.showToast('Registro exitoso. Ahora puedes iniciar sesión.','success',2000,'middle');
       this.resetCampos();
       this.esRegistro = false;
       return;
@@ -49,7 +57,7 @@ export class LoginPage {
     if (acceso) {
       this.router.navigate(['/tabs/dashboard']);
     } else {
-      alert('Credenciales inválidas');
+      this.toastService.showToast('Credenciales inválidas','danger',2000,'middle');
     }
   }
 
@@ -64,4 +72,21 @@ export class LoginPage {
     this.email = '';
     this.clave = '';
   }
+
+  async olvidasteClave() {
+    const modal = await this.modalCtrl.create({
+            component: RecuperarClavePage,
+            breakpoints: [0.5, 0.8],
+            initialBreakpoint: 0.6
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+
+    if (data?.mensaje) {
+            this.toastService.showToast(data.mensaje, data.tipo || 'success', 2000, 'middle');
+    }
+  }
+
 }
