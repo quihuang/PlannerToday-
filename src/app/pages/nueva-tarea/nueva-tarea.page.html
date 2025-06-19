@@ -5,58 +5,117 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list>
-    <ion-item>
-      <ion-label position="floating">Título</ion-label>
-      <ion-input [(ngModel)]="titulo"></ion-input>
-    </ion-item>
+  <ion-grid>
+    <ion-row>
+      <!-- Formulario -->
+      <ion-col size="12" size-md="6" class="glass-card ion-margin-bottom">
+        <!-- Título y Descripción -->
+        <ion-row>
+          <ion-col size="12" size-md="6">
+            <ion-item>
+              <ion-label position="floating">Título</ion-label>
+              <ion-input [(ngModel)]="titulo"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6">
+            <ion-item>
+              <ion-label position="floating">Descripción</ion-label>
+              <ion-input [(ngModel)]="descripcion"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
 
-    <ion-item>
-      <ion-label position="floating">Descripción</ion-label>
-      <ion-input [(ngModel)]="descripcion"></ion-input>
-    </ion-item>
+        <!-- Fecha y Hora -->
+        <ion-row>
+          <ion-col size="12" size-md="6">
+            <ion-item>
+              <ion-label position="floating">Fecha</ion-label>
+              <ion-datetime presentation="date" [(ngModel)]="fecha"></ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6">
+            <ion-item>
+              <ion-label position="floating">Hora</ion-label>
+              <ion-datetime presentation="time" [(ngModel)]="hora"></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
 
-    <ion-item>
-      <ion-label position="floating">Fecha</ion-label>
-      <ion-datetime display-format="DD/MM/YYYY" [(ngModel)]="fecha"></ion-datetime>
-    </ion-item>
+        <!-- Categoría y Prioridad -->
+        <ion-row>
+          <ion-col size="12" size-md="6">
+            <ion-label class="ion-padding-start">Categoría</ion-label>
+            <ion-segment [(ngModel)]="categoria">
+              <ion-segment-button [value]="'personal'" [class.inactive]="categoria !== 'personal'">
+                Personal
+              </ion-segment-button>
+              <ion-segment-button [value]="'trabajo'" [class.inactive]="categoria !== 'trabajo'">
+                Trabajo
+              </ion-segment-button>
+              <ion-segment-button [value]="'estudio'" [class.inactive]="categoria !== 'estudio'">
+                Estudio
+              </ion-segment-button>
+            </ion-segment>
+          </ion-col>
 
-    <ion-item>
-      <ion-label position="floating">Hora</ion-label>
-      <ion-datetime presentation="time" [(ngModel)]="hora"></ion-datetime>
-    </ion-item>
+          <ion-col size="12" size-md="6">
+            <ion-label class="ion-padding-start">Prioridad</ion-label>
+            <ion-segment [(ngModel)]="prioridad">
+              <ion-segment-button [value]="'alta'" [class.inactive]="prioridad !== 'alta'">
+                Alta
+              </ion-segment-button>
+              <ion-segment-button [value]="'media'" [class.inactive]="prioridad !== 'media'">
+                Media
+              </ion-segment-button>
+              <ion-segment-button [value]="'baja'" [class.inactive]="prioridad !== 'baja'">
+                Baja
+              </ion-segment-button>
+            </ion-segment>
+          </ion-col>
+        </ion-row>
 
-    <ion-item>
-      <ion-label>Categoría</ion-label>
-      <ion-select [(ngModel)]="categoria">
-        <ion-select-option value="personal">Personal</ion-select-option>
-        <ion-select-option value="trabajo">Trabajo</ion-select-option>
-        <ion-select-option value="estudio">Estudio</ion-select-option>
-      </ion-select>
-    </ion-item>
+        <!-- Botón Agregar -->
+        <ion-button expand="block" class="ion-margin-top" (click)="agregarTarea()">
+          Agregar Tarea
+        </ion-button>
+      </ion-col>
 
-    <ion-item>
-      <ion-label>Prioridad</ion-label>
-      <ion-select [(ngModel)]="prioridad">
-        <ion-select-option value="alta">Alta</ion-select-option>
-        <ion-select-option value="media">Media</ion-select-option>
-        <ion-select-option value="baja">Baja</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-button expand="block" (click)="agregarTarea()">Agregar Tarea</ion-button>
-  </ion-list>
-
-  <ion-list>
-    <ion-item *ngFor="let tarea of tareas">
-      <ion-label>
-        <h2>{{ tarea.titulo }}</h2>
-        <p>{{ tarea.descripcion }}</p>
-        <small>{{ tarea.fecha | date }}</small>
-      </ion-label>
-      <ion-button fill="clear" color="danger" (click)="eliminar(tarea.id)">
-        <ion-icon slot="icon-only" name="trash"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
+      <!-- Lista de tareas -->
+      <ion-col size="12" size-md="6" class="glass-card ion-margin-bottom">
+        <ion-list>
+          <ion-item *ngFor="let tarea of tareas" class="tarea-item">
+            <ion-label>
+              <h2>{{ tarea.titulo }}</h2>
+              <p>{{ tarea.descripcion }}</p>
+              <small>{{ tarea.fecha | date }}</small>
+            </ion-label>
+            <ion-button fill="clear" color="danger" (click)="eliminar(tarea.id)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+<style>
+  .inactive {
+    opacity: 0.5;
+  }
+
+  .glass-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+</style>
+
+
+
+
+
+

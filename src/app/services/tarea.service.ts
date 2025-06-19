@@ -11,6 +11,10 @@ export class TareaService {
 
   constructor(private storage: Storage) {}
 
+  async getTareas(): Promise<Tarea[]> {
+    return this.obtenerTareas();  // Alias para compatibilidad
+  }
+
   async obtenerTareas(): Promise<Tarea[]> {
     await this.storageReady;
     return (await this.storage.get(STORAGE_KEY)) || [];
@@ -31,13 +35,12 @@ export class TareaService {
   }
 
   async actualizarTarea(tareaActualizada: Tarea): Promise<void> {
-  await this.storageReady;
-  const tareas: Tarea[] = await this.obtenerTareas();
-  const index = tareas.findIndex(t => t.id === tareaActualizada.id);
-  if (index !== -1) {
-    tareas[index] = tareaActualizada;
-    await this.storage.set('tareas', tareas);
+    await this.storageReady;
+    const tareas: Tarea[] = await this.obtenerTareas();
+    const index = tareas.findIndex(t => t.id === tareaActualizada.id);
+    if (index !== -1) {
+      tareas[index] = tareaActualizada;
+      await this.storage.set(STORAGE_KEY, tareas);
+    }
   }
-}
-
 }

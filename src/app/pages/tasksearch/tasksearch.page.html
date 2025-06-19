@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Buscar Tareas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center resumen-numeros">
+      <ion-col size="12" size-md="4">
+        <ion-card color="primary">
+          <ion-card-content class="ion-text-center">
+            <h2>{{ total }}</h2>
+            <p>Total</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-md="4">
+        <ion-card color="success">
+          <ion-card-content class="ion-text-center">
+            <h2>{{ completadas }}</h2>
+            <p>Completadas</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-md="4">
+        <ion-card color="warning">
+          <ion-card-content class="ion-text-center">
+            <h2>{{ pendientes }}</h2>
+            <p>Pendientes</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- 🔹 Input de búsqueda -->
+  <ion-item>
+    <ion-input
+      [(ngModel)]="filtro"
+      placeholder="Buscar por título, descripción o prioridad"
+      (ionInput)="filtrarTareas()"
+      (keyup.enter)="filtrarTareas()"
+      clearInput
+    ></ion-input>
+  </ion-item>
+
+  <!-- 🔹 Resultado de la búsqueda -->
+  <ion-list *ngIf="tareasFiltradas.length > 0" class="ion-margin-top">
+    <ion-item *ngFor="let tarea of tareasFiltradas">
+      <ion-label class="ion-text-wrap">
+        <h2>{{ tarea.titulo }}</h2>
+        <p>{{ tarea.descripcion }}</p>
+        <p>Fecha: {{ tarea.fecha | date: 'shortDate' }} - {{ tarea.hora }}</p>
+        <p>Prioridad: {{ tarea.prioridad }}</p>
+        <p>Estado: {{ tarea.completada ? 'Completada' : 'Pendiente' }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-card *ngIf="tareasFiltradas.length === 0" class="ion-text-center ion-padding">
+    <ion-card-content>🔍 No se encontraron tareas.</ion-card-content>
+  </ion-card>
+
+</ion-content>
+

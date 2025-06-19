@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TareaService } from '../../services/tarea.service';
 import { Tarea } from '../../models/tarea.model';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-nueva-tarea',
@@ -14,17 +15,23 @@ export class NuevaTareaPage implements OnInit {
   descripcion = '';
   fecha = '';
   hora = '';
-  categoria = '';
+  categoria = 'personal';
   prioridad: 'alta' | 'media' | 'baja' = 'media';
 
-  constructor(private tareaService: TareaService) {}
+  constructor(
+    private tareaService: TareaService,
+    private toastService: ToastService
+  ) {}
 
   async ngOnInit() {
     this.tareas = await this.tareaService.obtenerTareas();
   }
 
   async agregarTarea() {
-    if (!this.titulo || !this.fecha) return alert('Campos requeridos');
+    if (!this.titulo || !this.fecha) {
+      this.toastService.showToast('Título y fecha son requeridos', 'warning', 2000, 'middle');
+      return;
+    }
 
     await this.tareaService.guardarTarea({
       titulo: this.titulo,
@@ -36,12 +43,14 @@ export class NuevaTareaPage implements OnInit {
       completada: false
     });
 
+    this.toastService.showToast('Tarea agregada exitosamente', 'success', 2000, 'bottom');
     this.limpiarFormulario();
     this.tareas = await this.tareaService.obtenerTareas();
   }
 
   async eliminar(id: string) {
     await this.tareaService.eliminarTarea(id);
+    this.toastService.showToast('Tarea eliminada', 'danger', 2000, 'bottom');
     this.tareas = await this.tareaService.obtenerTareas();
   }
 
@@ -49,7 +58,18 @@ export class NuevaTareaPage implements OnInit {
     this.titulo = '';
     this.descripcion = '';
     this.fecha = '';
-    this.categoria = '';
+    this.hora = '';
+    this.categoria = 'personal';
     this.prioridad = 'media';
   }
+
+  getIconoCategoria(categoria: string): string {
+    switch (categoria) {
+      case 'personal': return 'person-outline';
+      case 'trabajo': return 'briefcase-outline';
+      case 'estudio': return 'school-outline';
+      default: return 'document-outline';
+    }
+  }
 }
+

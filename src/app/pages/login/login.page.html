@@ -1,117 +1,70 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ esRegistro ? 'Registro' : 'Inicio de Sesión' }}</ion-title>
+    <ion-title class="ion-text-center">
+      <img src="assets/logo.png" alt="Planner Logo" class="logo-img" />
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form (ngSubmit)="login()">
+<ion-content class="ion-padding login-content">
+  <div class="form-wrapper">
+    <h2 class="titulo">{{ esRegistro ? 'Crear Cuenta' : 'Iniciar Sesión' }}</h2>
 
-    <!-- Campos solo visibles si está en modo registro -->
-    <ion-item *ngIf="esRegistro">
-      <ion-label position="floating">Nombres</ion-label>
-      <ion-input
-        type="text"
-        [(ngModel)]="nombres"
-        name="nombres"
-        required
-        clearInput
-      ></ion-input>
-    </ion-item>
+    <form (ngSubmit)="login()" class="login-form">
 
-    <ion-item *ngIf="esRegistro">
-      <ion-label position="floating">Apellidos</ion-label>
-      <ion-input
-        type="text"
-        [(ngModel)]="apellidos"
-        name="apellidos"
-        required
-        clearInput
-      ></ion-input>
-    </ion-item>
+      <!-- Nombre y Apellidos (solo registro) -->
+      <ion-item *ngIf="esRegistro">
+        <ion-label position="floating">Nombres</ion-label>
+        <ion-input type="text" [(ngModel)]="nombres" name="nombres" required></ion-input>
+      </ion-item>
 
-    <ion-item *ngIf="esRegistro">
-      <ion-label position="floating">Edad</ion-label>
-      <ion-input
-        type="number"
-        [(ngModel)]="edad"
-        name="edad"
-        required
-        clearInput
-      ></ion-input>
-    </ion-item>
+      <ion-item *ngIf="esRegistro">
+        <ion-label position="floating">Apellidos</ion-label>
+        <ion-input type="text" [(ngModel)]="apellidos" name="apellidos" required></ion-input>
+      </ion-item>
 
-    <!-- Correo (siempre visible) -->
-    <ion-item>
-      <ion-label position="floating">Correo</ion-label>
-      <ion-input
-        type="email"
-        [(ngModel)]="email"
-        name="email"
-        required
-        clearInput
-      ></ion-input>
-    </ion-item>
+      <ion-item *ngIf="esRegistro">
+        <ion-label position="floating">Edad</ion-label>
+        <ion-input type="number" [(ngModel)]="edad" name="edad" required></ion-input>
+      </ion-item>
 
-    <!-- Contraseña -->
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input
-        [type]="mostrarClave ? 'text' : 'password'"
-        [(ngModel)]="clave"
-        name="clave"
-        required
-        clearInput
-      ></ion-input>
-      <ion-buttons slot="end">
-        <ion-button fill="clear" size="small" (click)="mostrarClave = !mostrarClave">
-          <ion-icon
-            [name]="mostrarClave ? 'eye-off' : 'eye'"
-            slot="icon-only"
-          ></ion-icon>
+      <!-- Email -->
+      <ion-item>
+        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
+      </ion-item>
+
+      <!-- Clave -->
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input [type]="mostrarClave ? 'text' : 'password'" [(ngModel)]="clave" name="clave" required></ion-input>
+        <ion-button fill="clear" slot="end" (click)="mostrarClave = !mostrarClave">
+          <ion-icon [name]="mostrarClave ? 'eye-off' : 'eye'" slot="icon-only"></ion-icon>
         </ion-button>
-      </ion-buttons>
-    </ion-item>
+      </ion-item>
 
-    <ion-item *ngIf="esRegistro">
-      <ion-label position="floating">Confirmar Contraseña</ion-label>
-      <ion-input
-        [type]="mostrarConfirmacion ? 'text' : 'password'"
-        [(ngModel)]="confirmarClave"
-        name="confirmarClave"
-        required
-        clearInput
-      ></ion-input>
-      <ion-buttons slot="end">
-        <ion-button fill="clear" size="small" (click)="mostrarConfirmacion = !mostrarConfirmacion">
-          <ion-icon
-            [name]="mostrarConfirmacion ? 'eye-off' : 'eye'"
-            slot="icon-only"
-          ></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-item>
-    
+      <!-- Confirmar Clave (solo registro) -->
+      <ion-item *ngIf="esRegistro">
+        <ion-label position="floating">Confirmar Contraseña</ion-label>
+        <ion-input [type]="mostrarClave ? 'text' : 'password'" [(ngModel)]="confirmarClave" name="confirmarClave" required></ion-input>
+      </ion-item>
 
-    <!-- Botón principal -->
-    <ion-button expand="block" type="submit" class="ion-margin-top">
-      {{ esRegistro ? 'Registrarse' : 'Iniciar sesión' }}
+      <!-- Botón de acción -->
+      <ion-button expand="block" type="submit" class="ion-margin-top">
+        {{ esRegistro ? 'Registrarse' : 'Iniciar Sesión' }}
+      </ion-button>
+    </form>
+
+    <!-- Enlaces secundarios -->
+    <ion-text color="medium" class="ion-text-center">
+      <p (click)="toggleModo()" class="enlace-modo">
+        {{ esRegistro ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate aquí' }}
+      </p>
+    </ion-text>
+
+    <ion-button fill="clear" color="medium" size="small" expand="block" (click)="olvidasteClave()">
+      ¿Olvidaste tu contraseña?
     </ion-button>
-
-        
-  </form>
-
-  <!-- Toggle para cambiar entre login y registro -->
-  <ion-text color="medium" class="ion-text-center">
-    <p (click)="toggleModo()" style="cursor: pointer; margin-top: 20px;">
-      {{ esRegistro ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate aquí' }}
-    </p>
-  </ion-text>
-
-  <!-- recupera clave-->
-  <ion-button fill="clear" size="small" (click)="olvidasteClave()" expand="block" color="medium">
-    ¿Olvidaste tu contraseña?
-  </ion-button>
-
-
+  </div>
 </ion-content>
+

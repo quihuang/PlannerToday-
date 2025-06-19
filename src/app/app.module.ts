@@ -17,7 +17,8 @@ import { EstadisticasPage } from './pages/estadisticas/estadisticas.page';
 import { ConfiguracionPage } from './pages/configuracion/configuracion.page';
 import { TabsPage } from './pages/tabs/tabs.page';
 import { RecuperarClavePage } from './pages/recuperar-clave/recuperar-clave.page';
-import { UserProfilePage } from './pages/userprofile/userprofile.page';
+import { UserProfilePage } from './pages/userProfile/userprofile.page';
+import { TaskSearchPage } from './pages/tasksearch/tasksearch.page';  
 
 import { NgChartsModule } from 'ng2-charts';
 
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'estadisticas', component: EstadisticasPage },
       { path: 'configuracion', component: ConfiguracionPage },
       { path: 'perfil', component: UserProfilePage },
+      { path: 'tasksearch', component: TaskSearchPage },  
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   }
@@ -54,7 +56,8 @@ const routes: Routes = [
     ConfiguracionPage,
     TabsPage,
     RecuperarClavePage,
-    UserProfilePage
+    UserProfilePage,
+    TaskSearchPage 
   ],
   imports: [
     BrowserModule,
@@ -69,5 +72,6 @@ const routes: Routes = [
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
+
 
 

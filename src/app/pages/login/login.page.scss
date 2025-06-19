@@ -1,14 +1,32 @@
-ion-content {
+.login-content {
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
-form {
+.form-wrapper {
+  width: 100%;
   max-width: 400px;
   margin: auto;
+  padding: 20px;
 }
 
-ion-item ion-icon {
-  font-size: 20px;
+.logo-img {
+  max-height: 70px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
+
+.titulo {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.enlace-modo {
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
