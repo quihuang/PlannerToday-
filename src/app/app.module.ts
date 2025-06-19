@@ -17,6 +17,7 @@ import { EstadisticasPage } from './pages/estadisticas/estadisticas.page';
 import { ConfiguracionPage } from './pages/configuracion/configuracion.page';
 import { TabsPage } from './pages/tabs/tabs.page';
 import { RecuperarClavePage } from './pages/recuperar-clave/recuperar-clave.page';
+import { NgChartsModule } from 'ng2-charts';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -56,7 +57,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
-    RouterModule.forRoot(routes, { useHash: true })
+    RouterModule.forRoot(routes, { useHash: true }),
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

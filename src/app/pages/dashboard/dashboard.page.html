@@ -4,96 +4,177 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
-    <ion-refresher-content pullingIcon="arrow-down" pullingText="Desliza para actualizar" refreshingSpinner="crescent"
+    <ion-refresher-content
+      pullingIcon="arrow-down"
+      pullingText="Desliza para actualizar"
+      refreshingSpinner="crescent"
       refreshingText="Actualizando...">
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-content class="ion-padding">
+  <ion-grid *ngIf="total > 0">
+    <ion-row>
 
-    <!-- 🔹 Resumen -->
-    <ion-card-content>
-      <p>Total de tareas: <strong>{{ total }}</strong></p>
-      <p>Completadas: <strong>{{ completadas }}</strong></p>
-      <p>Pendientes: <strong>{{ pendientes }}</strong></p>
+      <!-- 🔹 Resumen -->
+      <ion-col size="12" sizeLg="4">
+        <ion-card class="resumen-tareas-card">
+          <ion-card-header>
+            <div class="resumen-header">
+              <ion-card-title>Resumen de Tareas</ion-card-title>
+              <div class="underline"></div>
+            </div>
+          </ion-card-header>
 
-      <ion-chip color="danger">
-        <ion-label>Alta: {{ prioridadAlta }}</ion-label>
-      </ion-chip>
-      <ion-chip color="warning">
-        <ion-label>Media: {{ prioridadMedia }}</ion-label>
-      </ion-chip>
-      <ion-chip color="success">
-        <ion-label>Baja: {{ prioridadBaja }}</ion-label>
-      </ion-chip>
+          <ion-card-content>
+
+            <div class="resumen-numeros">
+              <div class="item">
+                <h1>{{ total }}</h1>
+                <p>Total</p>
+              </div>
+              <div class="item">
+                <h1>{{ completadas }}</h1>
+                <p>Completadas</p>
+              </div>
+              <div class="item">
+                <h1>{{ pendientes }}</h1>
+                <p>Pendientes</p>
+              </div>
+            </div>
+
+            <div class="prioridades-row">
+              <ion-card class="prioridad-card danger">
+                <ion-icon name="alert-circle-outline"></ion-icon>
+                <div>
+                  <p>Alta</p>
+                  <strong>{{ prioridadAlta }}</strong>
+                </div>
+              </ion-card>
+
+              <ion-card class="prioridad-card warning">
+                <ion-icon name="remove-circle-outline"></ion-icon>
+                <div>
+                  <p>Media</p>
+                  <strong>{{ prioridadMedia }}</strong>
+                </div>
+              </ion-card>
+
+              <ion-card class="prioridad-card success">
+                <ion-icon name="checkmark-circle-outline"></ion-icon>
+                <div>
+                  <p>Baja</p>
+                  <strong>{{ prioridadBaja }}</strong>
+                </div>
+              </ion-card>
+            </div>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- 🔹 Pendientes con scroll -->
+      <ion-col size="12" sizeLg="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Pendientes</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="table-scroll">
+              <ion-list *ngIf="tareasPendientes.length > 0">
+                <ion-item *ngFor="let tarea of tareasPendientes" lines="none">
+                  <ion-label class="ion-text-wrap">
+                    <h2>{{ tarea.titulo }}</h2>
+                    <p>{{ tarea.fecha | date:'shortDate' }} - {{ tarea.hora }}</p>
+                  </ion-label>
+                  <ion-button fill="clear" color="success" size="small" (click)="completarTarea(tarea)">
+                    <ion-icon slot="icon-only" name="checkmark-done-outline"></ion-icon>
+                  </ion-button>
+                </ion-item>
+              </ion-list>
+              <div *ngIf="tareasPendientes.length === 0" class="ion-text-center">
+                ✅ No hay pendientes
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- 🔹 Completadas con scroll -->
+      <ion-col *ngIf="tareasCompletadas.length > 0" size="12" sizeLg="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Completadas</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="table-scroll">
+              <ion-list>
+                <ion-item *ngFor="let tarea of tareasCompletadas" lines="none">
+                  <ion-label class="ion-text-wrap">
+                    <h2>{{ tarea.titulo }}</h2>
+                    <p>{{ tarea.fecha | date:'shortDate' }} - {{ tarea.hora }}</p>
+                  </ion-label>
+                  <ion-chip color="success" slot="end">
+                    <ion-icon name="checkmark-circle-outline"></ion-icon>
+                  </ion-chip>
+                </ion-item>
+              </ion-list>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+
+    <!-- 🔹 Fila: Donut de Distribución de Tareas -->
+    <ion-row class="ion-padding-horizontal ion-justify-content-center">
+      <ion-col size="12" size-md="6" class="ion-text-center">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Distribución de Tareas</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div style="width: 100%; height: 300px;">
+              <canvas
+                baseChart
+                [data]="chartTareas"
+                [options]="chartTareasOptions"
+                [type]="chartTipoDona"
+                style="display: block; width: 100%; height: 100%;">
+              </canvas>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <!-- 🔹 Gráfico de Barras de Prioridades -->
+      <ion-col size="12" size-md="6" class="ion-text-center">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Distribución de Prioridades</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div style="width: 100%; height: 300px;">
+              <canvas
+                baseChart
+                [data]="chartPrioridades"
+                [options]="chartPrioridadesOptions"
+                [type]="chartTipoBarras"
+                style="display: block; width: 100%; height: 100%;">
+              </canvas>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <!-- 🔹 Sin tareas -->
+  <ion-card *ngIf="total === 0">
+    <ion-card-content class="ion-text-center">
+      🎉 ¡No tienes tareas registradas! Comienza creando una nueva.
     </ion-card-content>
-
-    <ion-list>
-      <ion-list-header>
-        <ion-label>Tareas Pendientes</ion-label>
-      </ion-list-header>
-
-      <ion-card *ngFor="let tarea of tareasPendientes" class="tarea-card">
-        <ion-card-header>
-          <ion-card-title>{{ tarea.titulo }}</ion-card-title>
-          <ion-card-subtitle>
-            {{ tarea.fecha | date:'fullDate' }} - {{ tarea.hora }}
-          </ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          <p>{{ tarea.descripcion }}</p>
-
-          <ion-chip [color]="getColor(tarea.prioridad)">
-            <ion-label>Prioridad: {{ tarea.prioridad }}</ion-label>
-          </ion-chip>
-
-          <ion-button fill="outline" color="success" size="small" (click)="completarTarea(tarea)">
-            <ion-icon name="checkmark-done-outline" slot="start"></ion-icon>
-            Marcar como completada
-          </ion-button>
-        </ion-card-content>
-        <ion-button fill="clear" color="danger" slot="end" (click)="eliminarTarea(tarea.id)">
-          <ion-icon name="trash-outline"></ion-icon>
-        </ion-button>
-
-      </ion-card>
-    </ion-list>
-
-    <ion-item lines="full" button (click)="mostrarCompletadas = !mostrarCompletadas">
-      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
-      <ion-label>Tareas Completadas</ion-label>
-      <ion-icon [name]="mostrarCompletadas ? 'chevron-up-outline' : 'chevron-down-outline'" slot="end"></ion-icon>
-    </ion-item>
-
-    <div *ngIf="mostrarCompletadas">
-      <ion-card *ngFor="let tarea of tareasCompletadas" color="light">
-        <ion-card-header>
-          <ion-card-title>{{ tarea.titulo }}</ion-card-title>
-          <ion-card-subtitle>
-            {{ tarea.fecha | date:'fullDate' }} - {{ tarea.hora }}
-          </ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          <p>{{ tarea.descripcion }}</p>
-
-          <ion-chip [color]="getColor(tarea.prioridad)">
-            <ion-label>Prioridad: {{ tarea.prioridad }}</ion-label>
-          </ion-chip>
-
-          <ion-chip color="success">
-            <ion-icon name="checkmark-circle" color="light"></ion-icon>
-            <ion-label>Completada</ion-label>
-          </ion-chip>
-        </ion-card-content>
-      </ion-card>
-    </div>
-
-    <!-- 🔹 Mensaje si no hay tareas -->
-    <ion-card *ngIf="tareasPendientes.length === 0">
-      <ion-card-content>
-        🎉 ¡No tienes tareas pendientes! Disfruta tu día.
-      </ion-card-content>
-    </ion-card>
-  </ion-content>
+  </ion-card>
+</ion-content>

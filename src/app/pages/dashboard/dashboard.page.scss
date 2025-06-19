@@ -3,6 +3,95 @@ h2 {
   margin-bottom: 10px;
 }
 
+.table-scroll {
+  max-height: 320px; /* ajustado para que entren 3 items promedio */
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.resumen-header {
+  text-align: center;
+
+  ion-card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #1e1e1e;
+  }
+
+  .underline {
+    width: 60px;
+    height: 4px;
+    margin: 0 auto;
+    background-color: #3880ff;
+    border-radius: 4px;
+  }
+}
+
+.resumen-tareas-card {
+  padding: 10px;
+
+  .resumen-numeros {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-bottom: 16px;
+
+    .item {
+      h1 {
+        font-size: 2.5rem;
+        margin: 0;
+        color: #222;
+      }
+
+      p {
+        margin: 0;
+        font-weight: bold;
+        font-size: 0.9rem;
+        color: #666;
+      }
+    }
+  }
+
+  .prioridades-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+
+    .prioridad-card {
+      flex: 1;
+      padding: 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 12px;
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+      ion-icon {
+        font-size: 24px;
+        margin-bottom: 4px;
+      }
+
+      &.danger {
+        background-color: #eb445a;
+      }
+
+      &.warning {
+        background-color: #ffc409;
+        color: #222;
+      }
+
+      &.success {
+        background-color: #2dd36f;
+      }
+    }
+  }
+}
+
+
+
 ion-item {
   --background: #f8f8f8;
   margin-bottom: 8px;
