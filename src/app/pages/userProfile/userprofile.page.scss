@@ -1,0 +1,42 @@
+:host {
+  --background: #f8f8f8;
+  display: block;
+}
+
+ion-content {
+  --padding-top: 16px;
+}
+
+.perfil-container {
+  padding: 16px;
+}
+
+ion-card {
+  margin: 16px auto;
+  max-width: 500px;
+}
+
+ion-item {
+  --highlight-color-focused: var(--ion-color-primary);
+  --min-height: 50px;
+}
+
+ion-label {
+  font-weight: 600;
+}
+
+ion-input,
+ion-button {
+  margin-top: 10px;
+}
+
+.botones {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+ion-button {
+  flex: 1;
+  margin: 0 5px;
+}
