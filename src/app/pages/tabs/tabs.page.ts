@@ -8,6 +8,12 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./tabs.page.scss'],
 })
 export class TabsPage {
+goToNuevaTarea() {
+throw new Error('Method not implemented.');
+}
+goToNewTask() {
+throw new Error('Method not implemented.');
+}
   constructor(private auth: AuthService, private router: Router) {}
 
   async logout() {

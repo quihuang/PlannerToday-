@@ -7,3 +7,13 @@ ion-content {
 ion-button {
   margin-top: 20px;
 }
+ion-item {
+  background: #e0e0e0; 
+  --highlight-background: #e0e0e0; 
+  --border-radius: 5px; 
+  margin-bottom: 18px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  --padding-start: 16px; 
+  --inner-padding-end: 8px; 
+  --detail-icon-color: #444444; 
+}

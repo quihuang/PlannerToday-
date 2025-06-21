@@ -1,0 +1,81 @@
+.custom-tab-bar {
+  --background: #fff;
+  --color: #000;
+  --color-selected: #000;
+  border-top: 1px solid #ddd;
+  height: 70px;
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 10;
+  overflow: visible;
+  align-items: flex-start;
+  padding-top: 55px;
+}
+
+.tab-button {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+}
+
+.tab-button:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tab-icon {
+  font-size: 2rem;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.2));
+}
+
+ion-tab-button ion-label {
+  font-size: 0.65rem;
+  margin-top: 3px;
+  color: #000;
+}
+
+.central-tab {
+  position: relative;
+  top: -45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 120%;
+  flex: 1;
+  z-index: 10;
+  
+}
+
+.central-button {
+  background-color: #2196f3;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 5px;
+  flex-shrink: 0;
+}
+
+.central-button:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.3);
+}
+
+.plus-icon {
+  color: #fff;
+  font-size: 2rem;
+}
+
+.central-tab ion-label {
+  margin-top: 0;
+  position: relative;
+  top: 5px;
+}
+
+.logout-tab ion-icon,
+.logout-tab ion-label {
+  color: #e60044 !important;
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { Usuario } from '../../models/usuario.model';
 import { Router } from '@angular/router';
@@ -16,8 +17,13 @@ export class UserProfilePage implements OnInit {
     email: '',
     clave: ''
   };
+verClave: any;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private alertController: AlertController // ✅ Agregado aquí
+  ) {}
 
   async ngOnInit() {
     const usuario = await this.authService.getUsuario();
@@ -26,7 +32,18 @@ export class UserProfilePage implements OnInit {
 
   async actualizarPerfil() {
     await this.authService.updateUsuario(this.usuario);
-    this.router.navigate(['/tabs/dashboard']);
+
+    const alert = await this.alertController.create({
+      header: 'Actualización Exitosa',
+      message: 'Actualización de datos confirmada. Por favor, inicia sesión nuevamente.',
+      buttons: [{
+        text: 'Aceptar',
+        handler: () => {
+          this.router.navigate(['/login']); // ✅ Redirige al login
+        }
+      }]
+    });
+
+    await alert.present();
   }
 }
-
